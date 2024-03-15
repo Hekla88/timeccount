@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Countdown Timer</title>
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background-color: black;
+        color: green;
+        text-align: center;
+        margin-top: 50px;
+    }
+    #countdown {
+        font-size: 48px;
+    }
+    #codeEntry {
+        margin-top: 20px;
+    }
+    #timeMachineImg {
+        width: 200px; /* Adjust the size of the image as needed */
+        margin-top: 20px;
+    }
+</style>
+</head>
+<body>
+<div id="countdown">30:00</div>
+<div id="codeEntry">Enter code: <input type="text" id="codeInput"></div>
+<div>
+    <img id="timeMachineImg" src="https://via.placeholder.com/200" alt="Time Machine Image">
+</div>
+
+<script>
+    // Set the countdown time in minutes
+    const countdownTime = 30;
+    let timer;
+
+    // Function to start the countdown
+    function startCountdown() {
+        const countdownElement = document.getElementById('countdown');
+        let timeLeft = countdownTime * 60;
+
+        timer = setInterval(() => {
+            const minutes = Math.floor(timeLeft / 60);
+            let seconds = timeLeft % 60;
+
+            seconds = seconds < 10 ? '0' + seconds : seconds;
+
+            countdownElement.innerHTML = `${minutes}:${seconds}`;
+
+            if (timeLeft <= 0) {
+                clearInterval(timer);
+                countdownElement.innerHTML = "Time's up!";
+            }
+
+            timeLeft--;
+        }, 1000);
+    }
+
+    // Start the countdown
+    startCountdown();
+
+    // Check if the code is entered correctly
+    document.getElementById('codeInput').addEventListener('keyup', function(e) {
+        if (e.key === 'Enter') {
+            const code = document.getElementById('codeInput').value;
+            if (code === '2024') {
+                clearInterval(timer);
+                document.getElementById('countdown').innerHTML = "Vel gert, nú ferðist þið aftur til ársins 2024.";
+            }
+        }
+    });
+
+    // Function to change the image source
+    function changeImage() {
+        document.getElementById('timeMachineImg').src = "https://via.placeholder.com/200?text=Time+Machine";
+    }
+
+    // Example of changing the image after a certain time (10 seconds)
+    setTimeout(changeImage, 10000);
+</script>
+</body>
+</html>
